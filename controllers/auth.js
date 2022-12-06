@@ -17,7 +17,6 @@ module.exports.postUser = async (req, res) => {
       });
     }
     const validationErrors = validationResult(req).array();
-    console.log("validation errors:", validationErrors);
     if (validationErrors.length > 0) {
       const firstError = validationErrors[0];
       return res.status(422).send({
@@ -25,7 +24,7 @@ module.exports.postUser = async (req, res) => {
       });
     } else {
       await AuthService.createUser(userInfo);
-      res.status(204).send("User created successfully");
+      res.status(204).send({ msg: "User created successfully" });
     }
   } catch (error) {
     res.status(500).send({
