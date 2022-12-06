@@ -23,7 +23,10 @@ module.exports.postUser = async (req, res) => {
       return res.status(422).send({
         error: firstError.msg,
       });
-    } else await AuthService.createUser(userInfo);
+    } else {
+      await AuthService.createUser(userInfo);
+      res.status(204).send("User created successfully");
+    }
   } catch (error) {
     res.status(500).send({
       error: error.message,
