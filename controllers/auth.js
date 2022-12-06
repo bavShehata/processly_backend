@@ -53,7 +53,7 @@ module.exports.postLogin = async (req, res) => {
     });
   } catch (err) {
     res.status(500).send({
-      error: error.message,
+      error: err.message,
     });
   }
 };
