@@ -57,6 +57,7 @@ module.exports.generateJWT = (user) => {
   const jwtPayload = {
     userId: user._id,
     email: user.email,
+    role: user.role,
     // if different users have different roles, you could put the role here too.
   };
 
