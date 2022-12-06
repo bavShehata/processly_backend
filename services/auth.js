@@ -18,7 +18,7 @@ module.exports.createUser = async (userInfo) => {
 
     await newUser.save();
   } catch (err) {
-    throw new Error("Error creating new user, please try again later.");
+    throw new Error("Error creating new user, please try again later." + err);
   }
 };
 

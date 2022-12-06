@@ -16,6 +16,7 @@ module.exports.postUser = async (req, res) => {
       });
     }
     const validationErrors = validationResult(req).array();
+    console.log("validation errors:", validationErrors);
     if (validationErrors.length > 0) {
       const firstError = validationErrors[0];
       return res.status(422).send({
