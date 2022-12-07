@@ -50,6 +50,7 @@ module.exports.postLogin = async (req, res) => {
     res.send({
       userId: user._id,
       email: user.email,
+      name: user.name,
       role: user.role,
       jwt: jwt,
       message: "Logged in successfully.",
