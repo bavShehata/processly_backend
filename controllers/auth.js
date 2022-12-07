@@ -24,7 +24,7 @@ module.exports.postUser = async (req, res) => {
       });
     } else {
       await AuthService.createUser(userInfo);
-      res.status(204).send({ msg: "User created successfully" });
+      res.send({ msg: "User created successfully" });
     }
   } catch (error) {
     res.status(500).send({
