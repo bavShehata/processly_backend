@@ -9,6 +9,8 @@ module.exports.postUser = async (req, res) => {
       password: req.body.password,
       name: req.body.name,
       role: req.body.role,
+      userId: user._id,
+      jwt: jwt,
     };
     const userExists = await AuthService.doesUserExist(userInfo.email);
     if (userExists) {
