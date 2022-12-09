@@ -19,14 +19,13 @@ module.exports.addNewOrder = async (orderInfo) => {
   }
 };
 
-module.exports.findOrders = async () => {
+module.exports.findOrders = async (user_email) => {
   try {
-    user_email = req.query.email;
     const orders =
       user_email === "all"
         ? OrderModel.find()
         : OrderModel.find({ email: user_email }, (err, docs) => {
-            if (err) throw new Error("orders couldn't be fetched");
+            if (err) throw new Error("orders couldn't be fetched: ", err);
             return docs;
           });
     return orders;

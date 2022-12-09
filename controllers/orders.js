@@ -6,7 +6,7 @@ const ordersService = require("../services/orders");
 
 module.exports.getOrders = async (req, res) => {
   try {
-    const orders = await ordersService.findOrders();
+    const orders = await ordersService.findOrders(req.params.email);
     return res.send({ orders });
   } catch (err) {
     // this denotes a server error, therefore status code should be 500.
@@ -46,14 +46,11 @@ module.exports.postOrder = async (req, res) => {
     //   });
     // }
 
-    const addedOrder = await ordersService.addNewOrder(
-      orderInfo
-      //supplierCoords
-    );
+    const addedOrder = await ordersService.addNewOrder(orderInfo);
 
     res.send({
       msg: "Order added successfully.",
-      supplierId: addedOrder._id,
+      orderId: addedOrder._id,
     });
   } catch (err) {
     res.status(500);
