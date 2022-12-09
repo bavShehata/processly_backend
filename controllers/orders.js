@@ -26,7 +26,7 @@ module.exports.postOrder = async (req, res) => {
   //     error: firstError.msg,
   //   });
   // }
-
+  console.log("Order body: ", req.body);
   const orderInfo = {
     date: req.body.date,
     deliveryNote: req.body.deliveryNote,
@@ -58,7 +58,7 @@ module.exports.postOrder = async (req, res) => {
   } catch (err) {
     res.status(500);
     res.send({
-      error: err.message,
+      error: `Couldn't add order ${err.message}`,
     });
   }
 };
