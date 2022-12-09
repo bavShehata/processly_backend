@@ -1,30 +1,37 @@
-const SupplierModel = require('../models/Supplier');
+const OrderModel = require("../models/Order");
 
-module.exports.addNewSupplier = async (supplierInfo, supplierCoords) => {
-  const supplier = new SupplierModel({
-    name: supplierInfo.name,
-    email: supplierInfo.email,
-    address: supplierInfo.address,
-    imgURL: supplierInfo.imgURL,
-    location: {
-      lat: supplierCoords.lat,
-      lng: supplierCoords.lon
-    }
+module.exports.addNewOrder = async (orderInfo) => {
+  const order = new OrderModel({
+    date: orderInfo.date,
+    deliveryNote: orderInfo.deliveryNote,
+    email: orderInfo.email,
+    productId: orderInfo.productId,
+    quantity: orderInfo.quantity,
+    status: orderInfo.status,
+    time: orderInfo.time,
+    totalPrice: orderInfo.totalPrice,
   });
   try {
-    const addedSupplier = await supplier.save();
-    return addedSupplier;
+    const addedOrder = await order.save();
+    return addedOrder;
   } catch (error) {
     console.log(error);
-    throw new Error('Could not add supplier.');
+    throw new Error("Could not add order.");
   }
 };
 
-module.exports.findAllSuppliers = async () => {
+module.exports.findOrders = async () => {
   try {
-    const suppliers = await SupplierModel.find();
-    return suppliers;
+    user_email = req.query.email;
+    const orders =
+      user_email === "all"
+        ? OrderModel.find()
+        : OrderModel.find({ email: user_email }, (err, docs) => {
+            if (err) throw new Error("orders couldn't be fetched");
+            return docs;
+          });
+    return orders;
   } catch (err) {
-    throw new Error('Could not retrieve suppliers.');
+    throw new Error("Could not retrieve orders.");
   }
 };
