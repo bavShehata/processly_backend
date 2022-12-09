@@ -34,7 +34,6 @@ module.exports.postOrder = async (req, res) => {
     productId: req.body.productId,
     quantity: req.body.quantity,
     status: req.body.status,
-    time: req.body.time,
     totalPrice: req.body.totalPrice,
   };
 

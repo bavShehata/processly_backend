@@ -8,7 +8,6 @@ module.exports.addNewOrder = async (orderInfo) => {
     productId: orderInfo.productId,
     quantity: orderInfo.quantity,
     status: orderInfo.status,
-    time: orderInfo.time,
     totalPrice: orderInfo.totalPrice,
   });
   try {
