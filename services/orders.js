@@ -21,11 +21,13 @@ module.exports.addNewOrder = async (orderInfo) => {
 
 module.exports.findOrders = async (user_email) => {
   try {
+    console.log("user email: ", user_email);
     const orders =
       user_email === "all"
         ? OrderModel.find()
         : OrderModel.find({ email: user_email }, (err, docs) => {
             if (err) throw new Error("orders couldn't be fetched: ", err);
+            console.log("docs: ", docs);
             return docs;
           });
     return orders;

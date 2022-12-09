@@ -6,6 +6,7 @@ const ordersService = require("../services/orders");
 
 module.exports.getOrders = async (req, res) => {
   try {
+    console.log("queries: ", req.params);
     const orders = await ordersService.findOrders(req.params.email);
     return res.send({ orders });
   } catch (err) {
