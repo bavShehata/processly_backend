@@ -6,8 +6,8 @@ const ordersService = require("../services/orders");
 
 module.exports.getOrders = async (req, res) => {
   try {
-    console.log("queries: ", req.params);
-    const orders = await ordersService.findOrders(req.params.email);
+    const orders = await ordersService.findOrders(req.query.email);
+    console.log("Recieved orders: ", orders);
     return res.send({ orders });
   } catch (err) {
     // this denotes a server error, therefore status code should be 500.
@@ -29,7 +29,6 @@ module.exports.postOrder = async (req, res) => {
   // }
   console.log("Order body: ", req.body);
   const orderInfo = {
-    date: req.body.date,
     deliveryNote: req.body.deliveryNote,
     email: req.body.email,
     productId: req.body.productId,

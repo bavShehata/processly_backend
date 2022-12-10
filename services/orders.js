@@ -2,7 +2,6 @@ const OrderModel = require("../models/Order");
 
 module.exports.addNewOrder = async (orderInfo) => {
   const order = new OrderModel({
-    date: orderInfo.date,
     deliveryNote: orderInfo.deliveryNote,
     email: orderInfo.email,
     productId: orderInfo.productId,
@@ -24,12 +23,8 @@ module.exports.findOrders = async (user_email) => {
     console.log("user email: ", user_email);
     const orders =
       user_email === "all"
-        ? OrderModel.find()
-        : OrderModel.find({ email: user_email }, (err, docs) => {
-            if (err) throw new Error("orders couldn't be fetched: ", err);
-            console.log("docs: ", docs);
-            return docs;
-          });
+        ? await OrderModel.find()
+        : await OrderModel.find({ email: user_email });
     return orders;
   } catch (err) {
     throw new Error("Could not retrieve orders.");
