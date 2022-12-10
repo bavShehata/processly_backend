@@ -13,14 +13,12 @@ module.exports.addNewOrder = async (orderInfo) => {
     const addedOrder = await order.save();
     return addedOrder;
   } catch (error) {
-    console.log(error);
     throw new Error("Could not add order.");
   }
 };
 
 module.exports.findOrders = async (user_email) => {
   try {
-    console.log("user email: ", user_email);
     const orders =
       user_email === "all"
         ? await OrderModel.find()
@@ -28,5 +26,27 @@ module.exports.findOrders = async (user_email) => {
     return orders;
   } catch (err) {
     throw new Error("Could not retrieve orders.");
+  }
+};
+
+module.exports.getOrder = async (order_id) => {
+  try {
+    const order = await OrderModel.findById(order_id);
+    return order;
+  } catch (err) {
+    throw new Error("Could not retrieve order of id .", order_id);
+  }
+};
+
+module.exports.editOrder = async (req) => {
+  try {
+    const order = await OrderModel.findByIdAndUpdate(
+      req.query.orderId,
+      { deliveryNote: req.body.deliveryNote, status: req.body.status },
+      { returnDocument: "after" }
+    );
+    return order;
+  } catch (err) {
+    throw new Error("Could not update order .", err);
   }
 };

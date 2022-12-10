@@ -6,8 +6,12 @@ const ordersService = require("../services/orders");
 
 module.exports.getOrders = async (req, res) => {
   try {
-    const orders = await ordersService.findOrders(req.query.email);
-    console.log("Recieved orders: ", orders);
+    var orders;
+    if (req.query.email)
+      orders = await ordersService.findOrders(req.query.email);
+    else if (req.query.orderId)
+      orders = await ordersService.getOrder(req.query.orderId);
+    else throw new Error("No queries supplied");
     return res.send({ orders });
   } catch (err) {
     // this denotes a server error, therefore status code should be 500.
@@ -27,7 +31,6 @@ module.exports.postOrder = async (req, res) => {
   //     error: firstError.msg,
   //   });
   // }
-  console.log("Order body: ", req.body);
   const orderInfo = {
     deliveryNote: req.body.deliveryNote,
     email: req.body.email,
@@ -56,6 +59,19 @@ module.exports.postOrder = async (req, res) => {
     res.status(500);
     res.send({
       error: `Couldn't add order ${err.message}`,
+    });
+  }
+};
+
+module.exports.editOrder = async (req, res) => {
+  try {
+    const order = await ordersService.editOrder(req);
+    return res.send({ order });
+  } catch (err) {
+    // this denotes a server error, therefore status code should be 500.
+    res.status(500);
+    return res.send({
+      error: err.message,
     });
   }
 };
