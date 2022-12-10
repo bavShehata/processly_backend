@@ -5,21 +5,15 @@ const ProductSchema = new Schema({
     type: 'String',
     required: true
   },
-  description: {
-    type: 'String',
-    required: true
-  },
   price: {
     type: 'Number',
     required: true
   },
-  imgURL: {
+  imgUrl: {
     type: 'String'
   },
-  supplierId: {
-    type: Schema.Types.ObjectId,
-    ref: 'supplier',
-    required: true
+  sizes: {
+    type: 'String'
   }
 });
 

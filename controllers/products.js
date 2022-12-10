@@ -67,3 +67,16 @@ module.exports.deleteProduct = async (req, res) => {
     });
   }
 };
+
+module.exports.editProduct = async (req, res) => {
+  try {
+    const product = await productsService.editProduct(req);
+    return res.send({ product });
+  } catch (err) {
+    // this denotes a server error, therefore status code should be 500.
+    res.status(500);
+    return res.send({
+      error: err.message,
+    });
+  }
+};

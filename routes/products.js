@@ -22,5 +22,7 @@ productsRouter.get('/:productId', productsController.getProduct);
 
 productsRouter.delete('/:productId', productsController.deleteProduct);
 
+productsRouter.put("/", productsController.editProduct)
+
 // export the router instance we created.
 module.exports = productsRouter;
