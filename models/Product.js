@@ -13,13 +13,10 @@ const ProductSchema = new Schema({
     type: 'String'
   },
   sizes: {
-    type: 'String'
+    type: ['String']
   }
 });
 
-// the first argument is the singular name of the collection your model is for.
-// Mongoose automatically looks for the plural, lowercased version of your model name.
-// therefore, in this case, the model we create will be mapped to the "products" collection.
 const ProductModel = model('product', ProductSchema);
 
 module.exports = ProductModel;

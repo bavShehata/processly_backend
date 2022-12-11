@@ -46,13 +46,15 @@ module.exports.removeProduct = async (productId) => {
 
 module.exports.editProduct = async (req) => {
   try {
-    const product = await OrderModel.findByIdAndUpdate(
+    const product = await ProductModel.findByIdAndUpdate(
       req.query.productId,
       { name: req.body.name, price: req.body.price,  imgUrl: req.body.imgUrl, sizes: req.body.sizes},
       { returnDocument: "after" }
     );
-    return order;
+    return product;
   } catch (err) {
     throw new Error("Could not update Product .", err);
   }
 };
+
+
