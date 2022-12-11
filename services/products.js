@@ -48,7 +48,7 @@ module.exports.editProduct = async (req) => {
   try {
     const product = await OrderModel.findByIdAndUpdate(
       req.query.productId,
-      { name: req.body.name, price: req.body.price,  imgUrl: req.body.imgUrl, sizes: req.body.size},
+      { name: req.body.name, price: req.body.price,  imgUrl: req.body.imgUrl, sizes: req.body.sizes},
       { returnDocument: "after" }
     );
     return order;

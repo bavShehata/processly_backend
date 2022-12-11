@@ -14,7 +14,7 @@ productsRouter.get('/', productsController.getProducts);
 
 // whenever we receive a POST request on products route '/',
 // we will invoke the postProduct method in the products controller.
-productsRouter.post('/', authMiddlewares.auth, productsController.postProduct);
+productsRouter.post('/', productsController.postProduct);
 
 // whenever we receive a GET request on products DYNAMIC route '/:productId',
 // we will invoke the getProduct method in the products controller that extracts the productId
