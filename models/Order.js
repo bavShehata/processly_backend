@@ -4,7 +4,7 @@ const OrderSchema = new Schema(
   {
     deliveryNote: {
       type: "String",
-      required: true,
+      required: false,
     },
     email: {
       type: "String",
@@ -14,8 +14,8 @@ const OrderSchema = new Schema(
       type: "String",
     },
     productId: {
-      type: "Number",
-      required: true,
+      type: Schema.Types.ObjectId,
+      ref: 'User'
     },
     quantity: {
       type: "Number",
