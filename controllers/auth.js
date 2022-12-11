@@ -9,9 +9,8 @@ module.exports.postUser = async (req, res) => {
       password: req.body.password,
       name: req.body.name,
       role: req.body.role,
-      userId: user._id,
-      jwt: jwt,
     };
+
     const userExists = await AuthService.doesUserExist(userInfo.email);
     if (userExists) {
       return res.status(422).send({
@@ -47,7 +46,6 @@ module.exports.postLogin = async (req, res) => {
           "Invalid credentials, please enter the correct email and password.",
       });
     }
-
     const jwt = await AuthService.generateJWT(user);
     res.send({
       userId: user._id,
