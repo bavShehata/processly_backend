@@ -1,7 +1,4 @@
 // import the validationResult method from express validator
-const { validationResult } = require("express-validator");
-
-const azMapsService = require("../services/azMaps");
 const ordersService = require("../services/orders");
 
 module.exports.getOrders = async (req, res) => {
@@ -36,6 +33,7 @@ module.exports.postOrder = async (req, res) => {
     email: req.body.email,
     productId: req.body.productId,
     quantity: req.body.quantity,
+    size: req.body.size,
     status: req.body.status,
     totalPrice: req.body.totalPrice,
   };
