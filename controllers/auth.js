@@ -24,8 +24,17 @@ module.exports.postUser = async (req, res) => {
         error: firstError.msg,
       });
     } else {
-      await AuthService.createUser(userInfo);
-      res.send({ msg: "User created successfully" });
+      var user = await AuthService.createUser(userInfo);
+      const jwt = await AuthService.generateJWT(user);
+
+      res.send({
+        userId: user._id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        token: jwt,
+        message: "Account created successfully.",
+      });
     }
   } catch (error) {
     res.status(500).send({
@@ -52,7 +61,7 @@ module.exports.postLogin = async (req, res) => {
       email: user.email,
       name: user.name,
       role: user.role,
-      jwt: jwt,
+      token: jwt,
       message: "Logged in successfully.",
     });
   } catch (err) {

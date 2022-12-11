@@ -16,6 +16,7 @@ module.exports.createUser = async (userInfo) => {
       role: userInfo.role,
     });
     await newUser.save();
+    return newUser
   } catch (err) {
     throw new Error("Error creating new user, please try again later." + err);
   }
