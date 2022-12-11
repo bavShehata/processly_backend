@@ -8,12 +8,13 @@ module.exports.addNewOrder = async (orderInfo) => {
     quantity: orderInfo.quantity,
     status: orderInfo.status,
     totalPrice: orderInfo.totalPrice,
+    size: orderInfo.size,
   });
   try {
     const addedOrder = await order.save();
     return addedOrder;
   } catch (error) {
-    throw new Error("Could not add order.");
+    throw new Error("Could not add order.", error);
   }
 };
 
