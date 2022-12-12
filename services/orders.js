@@ -1,5 +1,4 @@
 const OrderModel = require("../models/Order");
-
 module.exports.addNewOrder = async (orderInfo) => {
   const order = new OrderModel({
     deliveryNote: orderInfo.deliveryNote,
@@ -33,8 +32,10 @@ module.exports.findOrders = async (user_email) => {
 module.exports.getOrder = async (order_id) => {
   try {
     const order = await OrderModel.findById(order_id);
+    console.log(order);
     return order;
   } catch (err) {
+    console.log(err);
     throw new Error("Could not retrieve order of id .", order_id);
   }
 };

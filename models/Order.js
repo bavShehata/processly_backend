@@ -8,14 +8,17 @@ const OrderSchema = new Schema(
     },
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "user",
+      required: true,
     },
     status: {
       type: "String",
+      required: true,
     },
     productId: {
       type: Schema.Types.ObjectId,
-      ref: "Product",
+      ref: "product",
+      required: true,
     },
     quantity: {
       type: "Number",
