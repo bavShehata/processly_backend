@@ -4,7 +4,8 @@ const OrderSchema = new Schema(
   {
     deliveryNote: {
       type: "String",
-      required: false,
+      required: true,
+      default: "",
     },
     userId: {
       type: Schema.Types.ObjectId,
