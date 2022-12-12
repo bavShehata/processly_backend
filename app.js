@@ -1,5 +1,4 @@
 const express = require("express");
-const dotenv = require("dotenv");
 const cors = require("cors");
 
 // import the function that initiates a DB connection.
@@ -12,9 +11,6 @@ const bmanagmentRouter = require("./routes/bmanagment");
 const authRouter = require("./routes/auth");
 
 // Let the dotenv package read and parse environment variables in the ./config/.env file
-dotenv.config({
-  path: "./config/.env",
-});
 
 // Access the port environment variable using process.env
 const PORT = process.env.PORT;
