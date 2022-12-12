@@ -21,11 +21,13 @@ module.exports.findOrders = async (user_email) => {
   try {
     const orders =
       user_email === "all"
-        ? await OrderModel.find()
-        : await OrderModel.find({ email: user_email });
+        ? await OrderModel.find().populate("productId")
+        : await OrderModel.find({ email: user_email }).populate("productId");
+    orders;
     return orders;
   } catch (err) {
-    throw new Error("Could not retrieve orders.");
+    console.log(err);
+    throw new Error("Could not retrieve orders.", err);
   }
 };
 

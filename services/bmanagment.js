@@ -18,6 +18,24 @@ module.exports.getWeeksOrders = async () => {
   }
 };
 
+module.exports.getLateOrders = async () => {
+  var now = new Date();
+  var startOfLate = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() - 1
+  ).toDateString();
+  try {
+    const orders = await OrderModel.find({
+      createdAt: { $lte: startOfLate },
+      status: "pending",
+    }).populate("productId userId");
+    return orders;
+  } catch (error) {
+    throw new Error("Could not retrieve today's orders.", error);
+  }
+};
+
 module.exports.addNewReport = async (reportInfo) => {
   const report = new ReportModel({
     totalRevenue: reportInfo.totalRevenue,
