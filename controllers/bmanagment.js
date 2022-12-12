@@ -146,7 +146,7 @@ module.exports.sendReminderEmail = async (req, res) => {
 var automatedScript = cron.schedule(
   "0 0 0 * * *",
   () => {
-    axios.get("https://processly101.herokuapp.com/bmanagment/reminder");
+    axios.get("https://processly.azurewebsites.net/bmanagment/reminder");
   },
   {
     scheduled: true,
