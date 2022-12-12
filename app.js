@@ -22,6 +22,9 @@ app.use(express.json());
 // a middleware to allow HTTP requests from other servers
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 // Load the productsRouter and set its entry route to '/products'.
 // This means that any route defined inside the productsRouter will be prefixed by '/products' first.
 app.use("/products", productsRouter);
