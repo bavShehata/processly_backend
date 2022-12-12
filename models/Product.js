@@ -12,9 +12,9 @@ const ProductSchema = new Schema({
   imgUrl: {
     type: 'String'
   },
-  sizes: {
-    type: ['String']
-  }
+  sizes: [{
+    type: 'String'
+  }]
 });
 
 const ProductModel = model('product', ProductSchema);

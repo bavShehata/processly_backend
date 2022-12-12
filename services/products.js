@@ -22,11 +22,13 @@ module.exports.findProductById = async (productId) => {
 
 module.exports.addNewProduct = async (productInfo) => {
   try {
+    //change sizes to array
+    //validate product name is unique
     const product = new ProductModel({
       name: productInfo.name,
       price: productInfo.price,
       imgUrl: productInfo.imgUrl,
-      sizes: productInfo.size
+      sizes: productInfo.sizes.split(',')
       
     });
     const createdProduct = await product.save();

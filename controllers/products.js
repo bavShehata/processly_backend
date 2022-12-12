@@ -36,10 +36,9 @@ module.exports.getProduct = async (req, res) => {
 module.exports.postProduct = async (req, res) => {
   const productInfo = {
     name: req.body.name,
-    description: req.body.description,
     price: req.body.price,
-    imgURL: req.body.imgURL,
-    supplierId: req.body.supplierId
+    imgUrl: req.body.imgUrl,
+    sizes: req.body.sizes
   };
   try {
     const createdProduct = await productsService.addNewProduct(productInfo);
