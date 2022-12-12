@@ -8,8 +8,6 @@ var cron = require("node-cron");
 
 module.exports.generateReport = async (req, res) => {
   try {
-    await axios.get("https://processly101.herokuapp.com/bmanagment/reminder");
-
     // Get all orders for the past week
     const orders = await bmanagmentService.getWeeksOrders();
     // initialize the object
@@ -110,7 +108,6 @@ module.exports.sendReminderEmail = async (req, res) => {
     //toEmail = "ashrafadel54@gmail.com";
     var subjectEmail = "Reminder";
     var orders = await bmanagmentService.getLateOrders();
-    console.log(orders);
     var htmlEmail = compileHTMLEmail(orders);
     var transporter = nodemailer.createTransport({
       service: "gmail",
@@ -119,7 +116,6 @@ module.exports.sendReminderEmail = async (req, res) => {
         pass: process.env.GMAIL_PASS,
       },
     });
-    console.log(process.env.GMAIL_PASS);
     var mailOptions = {
       from: fromEmail,
       to: toEmail,
