@@ -22,15 +22,14 @@ module.exports.findProductById = async (productId) => {
 
 module.exports.addNewProduct = async (productInfo) => {
   try {
-    //change sizes to array
-    //validate product name is unique
-    const product = new ProductModel({
-      name: productInfo.name,
-      price: productInfo.price,
-      imgUrl: productInfo.imgUrl,
-      sizes: productInfo.sizes.split(',')
-      
-    });
+    
+      let product = new ProductModel({
+        name: productInfo.name,
+        price: productInfo.price,
+        imgUrl: productInfo.imgUrl,
+        sizes:productInfo.sizes == null?[]:productInfo.sizes.split(',') 
+      });
+  
     const createdProduct = await product.save();
     return createdProduct;
   } catch (err) {
@@ -47,6 +46,20 @@ module.exports.removeProduct = async (productId) => {
   }
 };
 
+module.exports.removeProductByName = async (req) => {
+  try {
+    const product = await ProductModel.findOne(
+      {'name':req.body.name}
+
+    )
+    await ProductModel.deleteOne(product);
+  } catch (err) {
+    throw new Error('Could not remove product.');
+  }
+};
+
+
+
 module.exports.editProduct = async (req) => {
   try {
     const product = await ProductModel.findByIdAndUpdate(
@@ -60,4 +73,16 @@ module.exports.editProduct = async (req) => {
   }
 };
 
-
+module.exports.editProductByName = async (req) => {
+  try {
+    const product = await ProductModel.findOneAndUpdate(
+      req.body.name,
+      { name: req.body.name, price: req.body.price,  imgUrl: req.body.imgUrl, sizes: req.body.sizes},
+      { returnDocument: "after" }
+    );
+    console.log(product)
+    return product;
+  } catch (err) {
+    throw new Error("Could not update Product .", err);
+  }
+};

@@ -10,10 +10,12 @@ const ProductSchema = new Schema({
     required: true
   },
   imgUrl: {
-    type: 'String'
+    type: 'String',
+    required: false
   },
   sizes: [{
-    type: 'String'
+    type: 'String',
+    required: false
   }]
 });
 
