@@ -6,16 +6,16 @@ const OrderSchema = new Schema(
       type: "String",
       required: false,
     },
-    email: {
-      type: "String",
-      required: true,
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     status: {
       type: "String",
     },
     productId: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: "Product",
     },
     quantity: {
       type: "Number",

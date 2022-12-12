@@ -3,7 +3,7 @@ const OrderModel = require("../models/Order");
 module.exports.addNewOrder = async (orderInfo) => {
   const order = new OrderModel({
     deliveryNote: orderInfo.deliveryNote,
-    email: orderInfo.email,
+    userId: orderInfo.userId,
     productId: orderInfo.productId,
     quantity: orderInfo.quantity,
     status: orderInfo.status,

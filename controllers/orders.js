@@ -30,7 +30,7 @@ module.exports.postOrder = async (req, res) => {
   // }
   const orderInfo = {
     deliveryNote: req.body.deliveryNote,
-    email: req.body.email,
+    userId: req.body.userId,
     productId: req.body.productId,
     quantity: req.body.quantity,
     size: req.body.size,
