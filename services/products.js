@@ -38,6 +38,7 @@ module.exports.addNewProduct = async (productInfo) => {
 
 module.exports.removeProduct = async (productId) => {
   try {
+    
     await ProductModel.deleteOne({ _id: productId });
   } catch (err) {
     throw new Error('Could not remove product.');
