@@ -10,6 +10,7 @@ module.exports.generateReport = async (req, res) => {
   try {
     // Get all orders for the past week
     const orders = await bmanagmentService.getWeeksOrders();
+    console.log(orders);
     // initialize the object
     report = {
       totalRevenue: 0,
