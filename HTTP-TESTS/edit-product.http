@@ -1,4 +1,4 @@
-PUT http://localhost:5000/products
+PUT https://processly.azurewebsites.net/products
 Content-Type: application/json
 
 {
