@@ -12,7 +12,10 @@ productsRouter.post('/', productsController.postProduct);
 
 productsRouter.get('/:productId', productsController.getProduct);
 
-productsRouter.delete('/:productId', productsController.deleteProduct);
+//productsRouter.delete('/:productId', productsController.deleteProduct);
+productsRouter.delete('/', productsController.deleteProduct);
+
+//productsRouter.delete('/', productsController.deleteProductByName);
 
 productsRouter.put("/", productsController.editProduct)
 

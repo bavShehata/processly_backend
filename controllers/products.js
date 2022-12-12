@@ -56,7 +56,9 @@ module.exports.postProduct = async (req, res) => {
 module.exports.deleteProduct = async (req, res) => {
   const productId = req.params.productId;
   try {
-    await productsService.removeProduct(productId);
+    //await productsService.removeProduct(productId);
+    await productsService.removeProductByName(req);
+
     return res.send({
       msg: 'Product deleted successfully.'
     });
@@ -67,9 +69,11 @@ module.exports.deleteProduct = async (req, res) => {
   }
 };
 
+
+
 module.exports.editProduct = async (req, res) => {
   try {
-    const product = await productsService.editProduct(req);
+    const product = await productsService.editProductByName(req);
     return res.send({ product });
   } catch (err) {
     // this denotes a server error, therefore status code should be 500.
