@@ -2,25 +2,18 @@
 const { Router } = require("express");
 
 // import our productsController
-const bmanagmentController = require("../controllers/products");
-const authMiddlewares = require("../middelwares/authorization");
+const bmanagmentController = require("../controllers/bmanagment");
 
 // create an instance of Express Router.
 const bmanagmentRouter = Router();
 
 // whenever we receive a GET request on products route '/',
 // we will invoke the getProducts method in the products controller.
-bmanagmentRouter.get("/", bmanagmentController.getProducts);
+bmanagmentRouter.get("/report", bmanagmentController.generateReport);
 
-// whenever we receive a POST request on products route '/',
-// we will invoke the postProduct method in the products controller.
-bmanagmentRouter.post("/", bmanagmentController.postProduct);
+bmanagmentRouter.put("/order", bmanagmentController.updateOrderStatus);
 
-// whenever we receive a GET request on products DYNAMIC route '/:productId',
-// we will invoke the getProduct method in the products controller that extracts the productId
-bmanagmentRouter.get("/:productId", bmanagmentController.getProduct);
-
-bmanagmentRouter.delete("/:productId", bmanagmentController.deleteProduct);
+bmanagmentRouter.get("/reminder", bmanagmentController.sendReminderEmail);
 
 // export the router instance we created.
 module.exports = bmanagmentRouter;

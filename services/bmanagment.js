@@ -1,53 +1,36 @@
+const ReportModel = require("../models/Report");
 const OrderModel = require("../models/Order");
 
-module.exports.addNewOrder = async (orderInfo) => {
-  const order = new OrderModel({
-    deliveryNote: orderInfo.deliveryNote,
-    email: orderInfo.email,
-    productId: orderInfo.productId,
-    quantity: orderInfo.quantity,
-    status: orderInfo.status,
-    totalPrice: orderInfo.totalPrice,
-    size: orderInfo.size,
+module.exports.getWeeksOrders = async () => {
+  var now = new Date();
+  var startOfToday = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() - 6
+  ).toDateString();
+  try {
+    const orders = await OrderModel.find({
+      createdAt: { $gte: startOfToday },
+    }).populate("productId userId", "email name");
+    return orders;
+  } catch (error) {
+    throw new Error("Could not retrieve today's orders.", error);
+  }
+};
+
+module.exports.addNewReport = async (reportInfo) => {
+  const report = new ReportModel({
+    totalRevenue: reportInfo.totalRevenue,
+    numOfOrders: reportInfo.numOfOrders,
+    mostSoldProduct: reportInfo.mostSoldProduct,
+    highestPurchaser: reportInfo.highestPurchaser,
+    products: reportInfo.products,
   });
   try {
-    const addedOrder = await order.save();
-    return addedOrder;
+    const addedReport = await report.save();
+    return addedReport;
   } catch (error) {
-    throw new Error("Could not add order.", error);
-  }
-};
-
-module.exports.findOrders = async (user_email) => {
-  try {
-    const orders =
-      user_email === "all"
-        ? await OrderModel.find()
-        : await OrderModel.find({ email: user_email });
-    return orders;
-  } catch (err) {
-    throw new Error("Could not retrieve orders.");
-  }
-};
-
-module.exports.getOrder = async (order_id) => {
-  try {
-    const order = await OrderModel.findById(order_id);
-    return order;
-  } catch (err) {
-    throw new Error("Could not retrieve order of id .", order_id);
-  }
-};
-
-module.exports.editOrder = async (req) => {
-  try {
-    const order = await OrderModel.findByIdAndUpdate(
-      req.query.orderId,
-      { deliveryNote: req.body.deliveryNote, status: req.body.status },
-      { returnDocument: "after" }
-    );
-    return order;
-  } catch (err) {
-    throw new Error("Could not update order .", err);
+    console.log(error);
+    throw new Error("Could not add report.", error);
   }
 };

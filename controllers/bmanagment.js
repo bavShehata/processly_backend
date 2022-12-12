@@ -1,62 +1,72 @@
 // import the validationResult method from express validator
+const bmanagmentService = require("../services/bmanagment");
 const ordersService = require("../services/orders");
 
 module.exports.generateReport = async (req, res) => {
   try {
-    var orders;
-    if (req.query.email)
-      orders = await ordersService.findOrders(req.query.email);
-    else if (req.query.orderId)
-      orders = await ordersService.getOrder(req.query.orderId);
-    else throw new Error("No queries supplied");
-    return res.send({ orders });
-  } catch (err) {
-    // this denotes a server error, therefore status code should be 500.
-    res.status(500);
+    // Get all orders for the past week
+    const orders = await bmanagmentService.getWeeksOrders();
+    // initialize the object
+    report = {
+      totalRevenue: 0,
+      numOfOrders: 0,
+      mostSoldProduct: "",
+      highestPurchaser: "",
+      products: {},
+    };
+    let maxTotal = 0;
+    let productsObj = {};
+    // Get the number of orders
+    report.numOfOrders = orders.length;
+    orders.forEach((order) => {
+      // Calculate total revenue
+      report.totalRevenue += order.totalPrice;
+      // Get the email of the user with the highest purchase
+      if (maxTotal < order.totalPrice) {
+        maxTotal = order.totalPrice;
+        order.totalPrice;
+        report.highestPurchaser = order.userId.email;
+      }
+      // Get
+      productsObj[order.productId.name] = productsObj[order.productId.name]
+        ? [
+            productsObj[order.productId.name][0] + 1,
+            productsObj[order.productId.name][1] + order.totalPrice,
+          ]
+        : [1, order.totalPrice];
+    });
+    report.products = productsObj;
+    maxTotal = 0;
+    for (prod in productsObj) {
+      if (maxTotal < productsObj[prod][0]) {
+        maxTotal = productsObj[prod][0];
+        report.mostSoldProduct = prod;
+      }
+    }
+
+    const addedReport = await bmanagmentService.addNewReport(report);
+
     return res.send({
-      error: err.message,
+      msg: "Report added successfully.",
+      report: addedReport,
+    });
+  } catch (err) {
+    res.status(500);
+    res.send({
+      error: `Couldn't add report ${err.message}`,
     });
   }
 };
 
 module.exports.updateOrderStatus = async (req, res) => {
-  // get validation errors in the form of an array.
-  // const validationErrors = validationResult(req).array();
-  // if (validationErrors.length > 0) {
-  //   const firstError = validationErrors[0];
-  //   return res.status(422).send({
-  //     error: firstError.msg,
-  //   });
-  // }
-  const orderInfo = {
-    deliveryNote: req.body.deliveryNote,
-    email: req.body.email,
-    productId: req.body.productId,
-    quantity: req.body.quantity,
-    size: req.body.size,
-    status: req.body.status,
-    totalPrice: req.body.totalPrice,
-  };
-
   try {
-    // const supplierCoords = await azMapsService.geocodeAddress(req.body.address);
-    // if supplierCoords is null, which means that no location is found using the given address
-    // if (!supplierCoords) {
-    //   return res.status(422).send({
-    //     error: "Could not find a valid location using the given address.",
-    //   });
-    // }
-
-    const addedOrder = await ordersService.addNewOrder(orderInfo);
-
-    res.send({
-      msg: "Order added successfully.",
-      orderId: addedOrder._id,
-    });
+    const order = await ordersService.editOrder(req);
+    return res.send({ order });
   } catch (err) {
+    // this denotes a server error, therefore status code should be 500.
     res.status(500);
-    res.send({
-      error: `Couldn't add order ${err.message}`,
+    return res.send({
+      error: err.message,
     });
   }
 };
