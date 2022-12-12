@@ -1,0 +1,7 @@
+PUT http://localhost:5000/products
+Content-Type: application/json
+
+{
+    "name": "Socks",
+    "price": 50
+}
