@@ -10,8 +10,6 @@ const ordersRouter = require("./routes/orders");
 const bmanagmentRouter = require("./routes/bmanagment");
 const authRouter = require("./routes/auth");
 
-// Let the dotenv package read and parse environment variables in the ./config/.env file
-
 // Access the port environment variable using process.env
 const PORT = process.env.PORT;
 const app = express();
