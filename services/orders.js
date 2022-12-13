@@ -20,7 +20,7 @@ module.exports.addNewOrder = async (orderInfo) => {
 module.exports.findOrders = async (user_email) => {
   try {
     const orders =
-      user_email === "all"
+      user_email == "all"
         ? await OrderModel.find().populate("productId")
         : await OrderModel.find({ email: user_email }).populate("productId");
     orders;
@@ -33,7 +33,7 @@ module.exports.findOrders = async (user_email) => {
 
 module.exports.getOrder = async (order_id) => {
   try {
-    const order = await OrderModel.findById(order_id);
+    const order = await OrderModel.findById(order_id).populate("productId");
     console.log(order);
     return order;
   } catch (err) {
