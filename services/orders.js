@@ -1,4 +1,6 @@
 const OrderModel = require("../models/Order");
+const UserModel = require("../models/User");
+
 module.exports.addNewOrder = async (orderInfo) => {
   const order = new OrderModel({
     deliveryNote: orderInfo.deliveryNote,
@@ -19,11 +21,15 @@ module.exports.addNewOrder = async (orderInfo) => {
 
 module.exports.findOrders = async (user_email) => {
   try {
-    const orders =
-      user_email == "all"
-        ? await OrderModel.find().populate("productId")
-        : await OrderModel.find({ email: user_email }).populate("productId");
-    orders;
+    var orders;
+    if (user_email == "all") {
+      orders = await OrderModel.find().populate("productId");
+    } else {
+      user = await UserModel.findOne({ email: user_email });
+      orders = await OrderModel.find({ userId: user._id.toString() }).populate(
+        "productId"
+      );
+    }
     return orders;
   } catch (err) {
     console.log(err);
