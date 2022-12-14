@@ -105,7 +105,7 @@ const compileHTMLEmail = (lateOrders) => {
 module.exports.sendReminderEmail = async (req, res) => {
   try {
     var fromEmail = "bavshehata@gmail.com";
-    var toEmail = "bavly@bavlifyweb.com";
+    var toEmail = "bavly206637@bue.edu.eg";
     //toEmail = "ashrafadel54@gmail.com";
     var subjectEmail = "Reminder";
     var orders = await bmanagmentService.getLateOrders();
@@ -142,7 +142,7 @@ module.exports.sendReminderEmail = async (req, res) => {
   }
 };
 
-// Will execute every day at midnight GMT-5
+// Will execute every day at midnight
 var automatedScript = cron.schedule(
   "0 0 0 * * *",
   () => {
