@@ -104,6 +104,7 @@ const compileHTMLEmail = (lateOrders) => {
 
 module.exports.sendReminderEmail = async (req, res) => {
   try {
+    console.log("Sending email...");
     var fromEmail = "bavshehata@gmail.com";
     var toEmail = "bavly206637@bue.edu.eg";
     //toEmail = "ashrafadel54@gmail.com";
